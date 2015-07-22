@@ -2,6 +2,8 @@ import wmi
 import speedtest_cli
 import threading
 import signal
+import os
+import json
 
 def testSpeed(urls):
     speedtest_cli.shutdown_event = threading.Event()
@@ -29,8 +31,9 @@ def setGateway(wmiObj, gateway):
 
     return ret
 
-def checkGatewayStatus():
-    urls = ["http://www.dynamsoft.com/assets/images/logo-index-dwt.png", "http://www.dynamsoft.com/assets/images/logo-index-dnt.png", "http://www.dynamsoft.com/assets/images/logo-index-ips.png", "http://www.codepool.biz/wp-content/uploads/2015/06/django_dwt.png", "http://www.codepool.biz/wp-content/uploads/2015/07/drag_element.png"]
+def checkGatewayStatus(urls):
+    if not urls:
+        urls = ["http://www.dynamsoft.com/assets/images/logo-index-dwt.png", "http://www.dynamsoft.com/assets/images/logo-index-dnt.png", "http://www.dynamsoft.com/assets/images/logo-index-ips.png", "http://www.codepool.biz/wp-content/uploads/2015/06/django_dwt.png", "http://www.codepool.biz/wp-content/uploads/2015/07/drag_element.png"]
 
     # Query current gateway
     wmiObj = wmi.WMI()
@@ -73,8 +76,23 @@ def checkGatewayStatus():
     except:
         print('Finished')
 
+def readConfigurationFile():
+    urls = None
+    config = 'config.json'
+    if os.path.exists(config):
+        with open(config) as file:
+            content = file.read()
+            try:
+                config_json = json.loads(content)
+                urls = config_json['urls']
+            except:
+                pass
+
+    return urls
+
 def main():
-    checkGatewayStatus()
+    urls = readConfigurationFile()
+    checkGatewayStatus(urls)
 
 if __name__ == '__main__':
     main()
