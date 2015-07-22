@@ -1,0 +1,6 @@
+{
+  "version": "1.0",
+  "author" : "yushulx",
+  "website": "www.dynamsoft.com",
+  "urls"   : ["http://www.dynamsoft.com/assets/images/logo-index-dwt.png", "http://www.dynamsoft.com/assets/images/logo-index-dnt.png", "http://www.dynamsoft.com/assets/images/logo-index-ips.png", "http://www.codepool.biz/wp-content/uploads/2015/06/django_dwt.png", "http://www.codepool.biz/wp-content/uploads/2015/07/drag_element.png"]
+}
